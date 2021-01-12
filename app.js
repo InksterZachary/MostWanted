@@ -85,6 +85,7 @@ function searchByTrait(people){
       app(foundPerson);
     }
 }
+
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
@@ -115,14 +116,35 @@ function displayPeople(people){
   }).join("\n"));
 }
 
+function getSpouse(person){
+  let people = data;
+  var theSpouse = people.filter(function(spouse){
+    if(person.id === spouse.currentSpouse){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  var mySpouse = theSpouse[0];
+  return mySpouse;
+}
+
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
   let personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "Height: " + person.height + '"' + "\n";
+  personInfo += "Weight:" + person.weight + "lbs" + "\n";
+  personInfo += "Age:" + person.dob + "\n";
+  personInfo += "Eye Color: " + person.eyeColor + "\n";
+  personInfo += "Marital Status: " + getSpouse(person).firstName + getSpouse(person).lastName + "\n";
+  personInfo += "Occupation: " + person.occupation + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
+
 
 // function that prompts and validates user input
 function promptFor(question, valid){
