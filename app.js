@@ -10,7 +10,6 @@ function app(people){
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
-      displayPerson(people);
       break;
     case 'no':
       unknownName(people);
@@ -21,7 +20,7 @@ function app(people){
   mainMenu(searchResults, people);
 }
 function unknownName(people){
-  let newSearch = promptFor("Do you know any of their traits?", yesNo).toLowerCase();
+  let newSearch = promptFor("Do you know any of their traits? Enter 'yes or 'no'", yesNo).toLowerCase();
   let searchResults;
     switch(newSearch){
       case 'yes':
@@ -48,10 +47,9 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+      displayPerson(person);
     break;
     case "family":
-    // TODO: get person's family
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -77,13 +75,17 @@ function searchByTrait(people){
       return false;
     }
   })
+    if(foundPerson.length > 0){
+      displayPeople(foundPerson);
+      app(foundPerson);
+    }
   return foundPerson;
 }
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
-  let foundPerson = people.filter(function(person){
+  var foundPerson = people.filter(function(person){
     if(person.firstName === firstName && person.lastName === lastName){
       return true;
     }
@@ -92,7 +94,8 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  return foundPerson;
+  var singlePerson = foundPerson[0];
+  return singlePerson;
 }
 
 // alerts a list of people
