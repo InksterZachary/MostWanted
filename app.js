@@ -20,9 +20,9 @@ function app(people){
   mainMenu(searchResults, people);
 }
 function unknownName(people){
-  let newSearch = promptFor("Do you know any of their traits? Enter 'yes or 'no'", yesNo).toLowerCase();
+  let searchType = promptFor("Do you know any of their traits? Enter 'yes or 'no'", yesNo).toLowerCase();
   let searchResults;
-    switch(newSearch){
+    switch(searchType){
       case 'yes':
         searchResults = searchByTrait(people);
         break;
@@ -68,25 +68,28 @@ function searchByTrait(people){
   let personGender = promptFor("What is the person's gender?", chars);
 
   let foundPerson = people.filter(function(person){
-    if(person.eyeColor === eyeColor && person.gender === personGender){
+    if(person.eyeColor === eyeColor || person.gender === personGender){
       return true;
     }
     else{
       return false;
     }
   })
-    if(foundPerson.length > 0){
+    if(foundPerson.length > 1){
       displayPeople(foundPerson);
       app(foundPerson);
     }
-  return foundPerson;
+    else{
+      var singlePerson = foundPerson[0];
+      return singlePerson;
+    }
 }
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
   let lastName = promptFor("What is the person's last name?", chars);
 
   var foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
+    if(person.firstName === firstName || person.lastName === lastName){
       return true;
     }
     else{
@@ -94,8 +97,14 @@ function searchByName(people){
     }
   })
   // TODO: find the person using the name they entered
-  var singlePerson = foundPerson[0];
-  return singlePerson;
+  if(foundPerson.length > 1){
+    displayPeople(foundPerson);
+    app(foundPerson);
+  }
+  else{
+    var singlePerson = foundPerson[0];
+    return singlePerson;
+  }
 }
 
 // alerts a list of people
