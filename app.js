@@ -81,7 +81,8 @@ function searchByTrait(people){
     }
     else{
       var singlePerson = foundPerson[0];
-      return singlePerson;
+      displayPerson(singlePerson);
+      app(foundPerson);
     }
 }
 function searchByName(people){
@@ -89,7 +90,7 @@ function searchByName(people){
   let lastName = promptFor("What is the person's last name?", chars);
 
   var foundPerson = people.filter(function(person){
-    if(person.firstName === firstName || person.lastName === lastName){
+    if(person.firstName === firstName && person.lastName === lastName){
       return true;
     }
     else{
