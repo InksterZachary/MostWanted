@@ -68,7 +68,7 @@ function searchByTrait(people){
   let personGender = promptFor("What is the person's gender?", chars);
 
   let foundPerson = people.filter(function(person){
-    if(person.eyeColor === eyeColor || person.gender === personGender){
+    if(person.eyeColor === eyeColor && person.gender === personGender){
       return true;
     }
     else{
