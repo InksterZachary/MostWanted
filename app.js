@@ -10,6 +10,7 @@ function app(people){
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
+      displayPerson(people);
       break;
     case 'no':
       unknownName(people);
