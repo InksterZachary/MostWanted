@@ -59,7 +59,7 @@ function mainMenu(person, people){
       displayFamily(person);
     break;
     case "descendants":
-    // TODO: get person's descendants
+      displayDescendants(person);
     break;
     case "restart":
     app(people); // restart
@@ -215,20 +215,19 @@ function getParents(person){
 
 function getDescendants(person){
   let people = data;
-  let famLine = people.filter(function(descendants){
-    if(descendants.getParents(person)[0] === person.getParents(person)[0] || descendants.getParents(person)[0] === person.getParents(person)[1]){
+  var theKids = people.filter(function(descendants){
+    if(descendants.parents[0] === person.parents[0] || descendants.parents[0] === person.parents[1]){
       return true;
     }
-    else if(descendants.getParents(person)[1] === person.getParents(person)[0] || descendants.getParents(person)[1] === person.getParents(person)[1]){
+    else if(descendants.parents[1] === person.parents[0] || descendants.parents[1] === person.parents[1]){
       return true;
     }
     else{
       return false;
     }
-  })
-  return famLine;
+  }) 
+  return theKids;
 }
-
 
 function getSibling(person){
   let people = data;
@@ -285,6 +284,15 @@ function displayFamily(person){
   }
   for(let i = 0; i < siblings.length; i++){
     familyInfo += "Sibling " + [i + 1]+ ": " + siblings[i].firstName + " " + siblings[i].lastName + "\n";
+  }
+  alert(familyInfo);
+}
+
+function displayDescendants(person){
+  let familyInfo = person.firstName + "'s Descendants:" + "\n";
+  let kids = getDescendants(person);
+  for(let i = 0; i < kids.length; i++){
+    familyInfo += kids[i].firstName + " " + kids[i].lastName + "\n";
   }
   alert(familyInfo);
 }
