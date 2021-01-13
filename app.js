@@ -12,10 +12,11 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      unknownName(people);
+      // unknownName(people);
+      searchResults = unknownName(people);
       break;
   }
-  
+  console.log(searchResults);
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   if(searchResults.length > 1){
     displayPeople(searchResults);
@@ -29,15 +30,18 @@ function app(people){
 }
 function unknownName(people){
   let searchType = promptFor("Do you know any of their traits? Enter 'yes or 'no'", yesNo).toLowerCase();
+  let traitChoices = [];
     switch(searchType){
       case 'yes':
-        return searchByTrait(people);
+        traitChoices = searchByTrait(people);
       case 'no':
         break;
         default:
       app(people);
         break;
     }
+    console.log(traitChoices);
+    return traitChoices;
 }
 // Menu function to call once you find who you are looking for
 function mainMenu(person, people){
@@ -71,7 +75,7 @@ function mainMenu(person, people){
   }
 }
 
- 
+ //this guy right here is losing its value when returning after done is chosen
 function searchByTrait(people){
   let search = promptFor("What trait would you like to search for? Enter: \n gender | eyes | height | weight | occupation \n or enter done if you've narrowed it down.", chars);
   let searchResults = [];
@@ -96,7 +100,9 @@ function searchByTrait(people){
       searchResults = searchByOccupation(people);
       people = searchResults;
     case "done":
-      return people;
+      searchResults = people;
+      console.log(people);
+      return searchResults;
     default:
       return searchByTrait(people);
   }
