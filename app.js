@@ -285,6 +285,9 @@ function displayFamily(person){
   for(let i = 0; i < siblings.length; i++){
     familyInfo += "Sibling " + [i + 1]+ ": " + siblings[i].firstName + " " + siblings[i].lastName + "\n";
   }
+  if(person.spouse != null){
+    familyInfo += "Spouse: " + getSpouse(person).firstName + " " + getSpouse(person).lastName + "\n";
+  }
   alert(familyInfo);
 }
 
